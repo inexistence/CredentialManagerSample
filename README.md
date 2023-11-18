@@ -21,7 +21,7 @@ implementation("androidx.credentials:credentials:1.2.0")
 implementation("androidx.credentials:credentials-play-services-auth:1.2.0")
 ```
 
-3. 配置rp，可参考该[说明](https://developer.android.com/training/sign-in/passkeys/?hl=zh-cn)。注意：使用 rp 对应域名下的配置相同的包名和签名。该库使用谷歌提供的[demo](https://github.com/android/identity-samples/tree/main/CredentialManager)中的rp以及对应的包名和签名。
+3. 配置rp，可参考该[说明](https://developer.android.com/training/sign-in/passkeys/?hl=zh-cn#add-support-dal)。注意：使用 rp 对应域名下的配置相同的包名和签名。该库使用谷歌提供的[demo](https://github.com/android/identity-samples/tree/main/CredentialManager)中的rp以及对应的包名和签名。
 
 **服务端**
 
@@ -156,7 +156,9 @@ suspend fun signInWithPasskeys(context: Context, username: String? = null): Resu
 
 ### 其他说明
 
-#### RP的配置：[参考](https://developer.android.com/training/sign-in/passkeys/?hl=zh-cn)
+#### RP的配置
+
+*原文：[add-support-dal](https://developer.android.com/training/sign-in/passkeys/?hl=zh-cn#add-support-dal)*
 
 如需让您的 Android 应用支持通行密钥，请将应用与其拥有的网站相关联。
 
@@ -238,15 +240,34 @@ suspend fun signInWithPasskeys(context: Context, username: String? = null): Resu
    < Content-Type: application/json
    ```
 
+#### 支持第三方 passkey 管理应用
+
+*原文：[Make passkey endpoints well known url part of your passkey implementation](https://android-developers.googleblog.com/2023/10/make-passkey-endpoints-well-known-url-part-of-your-passkey-implementation.html)*
+
+密码管理工具的使用率一直在稳步上升，我们预计大多数提供商也将集成密钥管理。您可以允许第三方工具和服务通过实施密钥端点众所周知的 URL 将您的用户引导至专用密钥管理页面。
+
+最好的部分是，在大多数情况下，您可以在两个小时或更短的时间内实现此功能！您所需要做的就是在您的网站上托管一个简单的架构。查看下面的示例：
+
+1. 对于 https://example.com 上的 Web 服务，众所周知的 URL 为 https://example.com/.well-known/passkey-endpoints
+2. 查询 URL 时，响应应使用以下架构：
+
+```
+{ "enroll": "https://example.com/account/manage/passkeys/create",  "manage": "https://example.com/account/manage/passkeys" }
+```
+
+**注意：**您可以根据网站自身的配置来决定注册和管理的 URL 的确切值。
+
+如果您有移动应用程序，我们强烈建议使用[深层链接](https://developer.android.com/training/app-links/deep-linking)，让这些 URL 直接在您的应用程序中打开每个活动的相应屏幕，以“注册”或“管理”密钥。这将使您的用户集中注意力并按计划注册密钥。
+
 #### 问题
 
-注册/登录passkey失败
+注册/登录passkey失败，原因未知，疑似 google 的问题。
 
-退出gp账号，重新登录gp账号后，注册/登录passkey失败。
+* 退出gp账号，重新登录gp账号后，注册/登录passkey失败。
 
-先注册passkey，然后重启设备，登录passkey，一直报没有凭证，可是明明有。
+* 先注册passkey，然后重启设备，登录passkey，一直报没有凭证，可是明明有。
 
-进入 设置 -> Google -> 自动填充 -> Google 自动填充 -> 密码， 点击对应应用密码查看详情后再进入应用使用passkey竟然又正常了。
+以上两个问题，有时重启设备后正常，有时进入“设置 -> Google -> 自动填充 -> Google 自动填充 -> 密码”， 点击对应应用密码查看详情后，再进入应用使用 passkey 正常。
 
 ```
 androidx.credentials.exceptions.NoCredentialException: During begin sign in, failure response from one tap: 16: Cannot find a matching credential.
@@ -275,7 +296,8 @@ at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:990)
 - [常见问题解答](https://developer.android.com/training/sign-in/credential-manager-faq?hl=zh-cn)
 - [WebAuthn](https://w3c.github.io/webauthn)
 - [WebAuthn和Passkey的关系](https://blog.passwordless.id/webauthn-vs-passkeys): webauthn 是规范，passkey 是 webauthn 的具体实现
+- [Make passkey endpoints well known url part of your passkey implementation](https://android-developers.googleblog.com/2023/10/make-passkey-endpoints-well-known-url-part-of-your-passkey-implementation.html)
 - 开源库
-    - passkey解析库列表：[https://github.com/herrjemand/awesome-webauthn](https://github.com/herrjemand/awesome-webauthn)
-    - Android：[github demo](https://github.com/android/identity-samples/tree/main/CredentialManager)
+    - Webauthn解析库列表：[https://github.com/herrjemand/awesome-webauthn](https://github.com/herrjemand/awesome-webauthn)
+    - Android官方demo：[github demo](https://github.com/android/identity-samples/tree/main/CredentialManager)
     - 本项目模拟后台用的解析库：[https://github.com/webauthn4j/webauthn4j](https://github.com/webauthn4j/webauthn4j)
