@@ -2,6 +2,8 @@
 
 服务端部分通过拆分单独库([server-sample](./server-sample))进行模拟。
 
+>  只有搭载 Android 9（API 级别 28）或更高版本的设备才支持通行密钥。在搭载介于 Android 4.4（API 级别 19）和 Android 8.1（API 级别 27）之间的版本（包含这两个版本）的设备上，仅支持密码和“使用 Google 账号登录”功能。
+
 ## 设置
 
 以下配置本demo均已完成，这里提及主要是作为提醒和介绍。
@@ -23,7 +25,16 @@ implementation("androidx.credentials:credentials:1.2.0")
 implementation("androidx.credentials:credentials-play-services-auth:1.2.0")
 ```
 
-3. 配置rp，可参考该[说明](https://developer.android.com/training/sign-in/passkeys/?hl=zh-cn#add-support-dal)。注意：使用 rp 对应域名下的配置相同的包名和签名。该库使用谷歌提供的[demo](https://github.com/android/identity-samples/tree/main/CredentialManager)中的rp以及对应的包名和签名。
+3. 添加混淆规则
+
+```
+-if class androidx.credentials.CredentialManager
+-keep class androidx.credentials.playservices.** {
+  *;
+}
+```
+
+4. 配置rp，可参考该[说明](https://developer.android.com/training/sign-in/passkeys/?hl=zh-cn#add-support-dal)。注意：使用 rp 对应域名下的配置相同的包名和签名。该库使用谷歌提供的[demo](https://github.com/android/identity-samples/tree/main/CredentialManager)中的rp以及对应的包名和签名。
 
 **服务端**
 
