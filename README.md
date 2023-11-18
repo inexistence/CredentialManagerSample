@@ -231,7 +231,7 @@ suspend fun signInWithPasskeys(context: Context, username: String? = null): Resu
    </string>
    ```
 
-   **注意：**`https://signin.example.com/.well-known/assetlinks.json` 链接必须返回包含 JSON MIME 内容类型标头的 200 HTTP 响应。若返回 301 或 302 HTTP 重定向或非 JSON 内容类型，会导致验证失败。以下示例展示了一个请求及其相关的响应标头。
+   **注意：** `https://signin.example.com/.well-known/assetlinks.json` 链接必须返回包含 JSON MIME 内容类型标头的 200 HTTP 响应。若返回 301 或 302 HTTP 重定向或非 JSON 内容类型，会导致验证失败。以下示例展示了一个请求及其相关的响应标头。
 
    ```
    > GET /.well-known/assetlinks.json HTTP/1.1
@@ -292,12 +292,12 @@ at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:990)
 ## 参考
 
 - [使用凭据管理器让用户登录](https://developer.android.com/training/sign-in/passkeys/?hl=zh-cn)
-- [实现参考](https://medium.com/androiddevelopers/bringing-seamless-authentication-to-your-apps-using-credential-manager-api-b3f0d09e0093#172a)
-- [实现参考2](https://web.dev/articles/passkey-registration?hl=zh-cn#send-the-returned-public-key-credential-to-the-backend)
+- [Bringing seamless authentication to your apps with passkeys using Credential Manager API](https://medium.com/androiddevelopers/bringing-seamless-authentication-to-your-apps-using-credential-manager-api-b3f0d09e0093)（实现参考）
+- [passkey-registration](https://web.dev/articles/passkey-registration?hl=zh-cn)（实现参考）
 - [交互建议](https://developer.android.com/design/ui/mobile/guides/patterns/passkeys?hl=zh-cn)
 - [常见问题解答](https://developer.android.com/training/sign-in/credential-manager-faq?hl=zh-cn)
 - [WebAuthn](https://w3c.github.io/webauthn)
-- [WebAuthn和Passkey的关系](https://blog.passwordless.id/webauthn-vs-passkeys): webauthn 是规范，passkey 是 webauthn 的具体实现
+- [WebAuthn和Passkey的关系](https://blog.passwordless.id/webauthn-vs-passkeys)（webauthn 是规范，passkey 是 webauthn 的具体实现）
 - [Make passkey endpoints well known url part of your passkey implementation](https://android-developers.googleblog.com/2023/10/make-passkey-endpoints-well-known-url-part-of-your-passkey-implementation.html)
 - 开源库
     - Webauthn解析库列表：[https://github.com/herrjemand/awesome-webauthn](https://github.com/herrjemand/awesome-webauthn)
