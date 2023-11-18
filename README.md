@@ -35,6 +35,7 @@ implementation("androidx.credentials:credentials-play-services-auth:1.2.0")
 ```
 
 4. 配置rp，可参考该[说明](https://developer.android.com/training/sign-in/passkeys/?hl=zh-cn#add-support-dal)。注意：使用 rp 对应域名下的配置相同的包名和签名。该库使用谷歌提供的[demo](https://github.com/android/identity-samples/tree/main/CredentialManager)中的rp以及对应的包名和签名。
+4. [可选] 配置提供给第三方的注册/管理，详情可参考下方其他说明
 
 **服务端**
 
@@ -268,7 +269,7 @@ suspend fun signInWithPasskeys(context: Context, username: String? = null): Resu
 { "enroll": "https://example.com/account/manage/passkeys/create",  "manage": "https://example.com/account/manage/passkeys" }
 ```
 
-**注意：**您可以根据网站自身的配置来决定注册和管理的 URL 的确切值。
+**注意：** 您可以根据网站自身的配置来决定注册和管理的 URL 的确切值。
 
 如果您有移动应用程序，我们强烈建议使用[深层链接](https://developer.android.com/training/app-links/deep-linking)，让这些 URL 直接在您的应用程序中打开每个活动的相应屏幕，以“注册”或“管理”密钥。这将使您的用户集中注意力并按计划注册密钥。
 
