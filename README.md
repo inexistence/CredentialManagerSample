@@ -4,6 +4,8 @@
 
 ## 设置
 
+以下配置本demo均已完成，这里提及主要是作为提醒和介绍。
+
 **客户端**
 
 1. 设置网络权限
@@ -31,7 +33,7 @@ implementation("androidx.credentials:credentials-play-services-auth:1.2.0")
 implementation("com.webauthn4j:webauthn4j-core:0.21.7.RELEASE")
 ```
 
-## 说明
+## 流程说明
 
 ### 创建流程
 
